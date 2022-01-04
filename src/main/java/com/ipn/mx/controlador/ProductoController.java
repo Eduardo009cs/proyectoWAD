@@ -108,7 +108,7 @@ public class ProductoController extends HttpServlet {
     private void listadoDeProductos(HttpServletRequest request, HttpServletResponse response) {
         ProductoDAO dao = new ProductoDAO();
         try {
-            //System.out.println(dao.readAll());
+            
             if (dao.readAll() == null) {
                 request.setAttribute("mensaje", "No hay registros");
             }

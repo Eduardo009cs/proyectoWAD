@@ -213,12 +213,12 @@ public class UsuarioController extends HttpServlet {
                 if (dto.getEntidad().getEmail().equals(dto2.getEntidad().getEmail())) {
                     request.setAttribute("mensaje", "Este correo ya ha sido registrado.");
                     vista2.forward(request, response);
-                    break;
+                    
                 }
                 if (dto.getEntidad().getNombreUsuario().equals(dto2.getEntidad().getNombreUsuario())) {
                     request.setAttribute("mensaje", "Este nombre de usuario ya ha sido registrado.");
                     vista2.forward(request, response);
-                    break;
+                    
                 }
             }
         } catch (SQLException | ServletException | IOException ex) {
@@ -230,8 +230,8 @@ public class UsuarioController extends HttpServlet {
             HttpSession sesion = request.getSession(false);
             email.enviarCorreo(dto.getEntidad().getEmail(), "Registro Creado", "Se ha registrado un usuario con este correo.");
 
-            request.setAttribute("mensaje", "Usuario Agregado con exito");
-            if (sesion == null) {
+            //request.setAttribute("mensaje", "Usuario Agregado con exito");
+            if (sesion.getAttribute("sesion") == null) {
                 vista.forward(request, response);
             } else {
                 email.enviarCorreo((String) sesion.getAttribute("correo"), "Registro Creado", "Ha creado un registro de usuario");
@@ -316,10 +316,7 @@ public class UsuarioController extends HttpServlet {
                         request.setAttribute("mensaje", "Error al iniciar sesión.");
                         vista1.forward(request, response);
                     }
-                }else {
-                        request.setAttribute("mensaje", "Error al iniciar sesión.");
-                        vista1.forward(request, response);
-                    }
+                }
             }
 
         } catch (SQLException | ServletException | IOException ex) {
